@@ -1520,7 +1520,6 @@ footer.footer-ethereal .footer-contact li:hover .fab {
 .text-accent {
     color: var(--accent-color) !important;
     font-family: var(--font-accent);
-    font-size: 1.1rem;
 }
 
 .border-ethereal {
