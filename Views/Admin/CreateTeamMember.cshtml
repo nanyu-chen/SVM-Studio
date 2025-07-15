@@ -1,0 +1,164 @@
+@model TeamMember
+@{
+    ViewData["Title"] = "Create Team Member";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Add Team Member</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="/Admin/TeamMembers" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Team
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Team Member Details</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="CreateTeamMember" method="post">
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Full Name</label>
+                        <input asp-for="Name" class="form-control" placeholder="Enter full name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Role" class="form-label">Role/Position</label>
+                        <input asp-for="Role" class="form-control" placeholder="e.g., Lead Photographer, Creative Director" />
+                        <span asp-validation-for="Role" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Bio" class="form-label">Biography</label>
+                        <textarea asp-for="Bio" class="form-control" rows="4" placeholder="Enter a brief biography"></textarea>
+                        <span asp-validation-for="Bio" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ImageUrl" class="form-label">Profile Photo URL</label>
+                        <input asp-for="ImageUrl" class="form-control" placeholder="Enter photo URL" />
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                        <div class="form-text">Enter the URL of the team member's profile photo</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="InstagramUrl" class="form-label">Instagram URL</label>
+                                <input asp-for="InstagramUrl" class="form-control" placeholder="https://instagram.com/username" />
+                                <span asp-validation-for="InstagramUrl" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="LinkedInUrl" class="form-label">LinkedIn URL</label>
+                                <input asp-for="LinkedInUrl" class="form-control" placeholder="https://linkedin.com/in/username" />
+                                <span asp-validation-for="LinkedInUrl" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="SortOrder" class="form-label">Sort Order</label>
+                        <input asp-for="SortOrder" class="form-control" type="number" min="0" placeholder="0" />
+                        <span asp-validation-for="SortOrder" class="text-danger"></span>
+                        <div class="form-text">Lower numbers appear first on the team page</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input asp-for="IsActive" class="form-check-input" type="checkbox" checked />
+                            <label asp-for="IsActive" class="form-check-label">
+                                Active Team Member
+                            </label>
+                        </div>
+                        <div class="form-text">Only active team members appear on the public website</div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="/Admin/TeamMembers" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Add Team Member
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Preview</h5>
+            </div>
+            <div class="card-body text-center">
+                <div id="image-preview" class="mb-3">
+                    <img id="preview-image" src="https://via.placeholder.com/200x200?text=No+Photo" alt="Preview" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+                </div>
+                <div id="name-preview" class="fw-bold mb-1">Enter name</div>
+                <div id="role-preview" class="text-muted small mb-2">Enter role</div>
+                <div id="bio-preview" class="text-muted small">Enter bio</div>
+                <div id="social-preview" class="mt-3">
+                    <span id="instagram-preview" class="me-2" style="display: none;">
+                        <i class="fab fa-instagram text-primary"></i>
+                    </span>
+                    <span id="linkedin-preview" style="display: none;">
+                        <i class="fab fa-linkedin text-primary"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Live preview
+        document.addEventListener('DOMContentLoaded', function() {
+            const nameInput = document.getElementById('Name');
+            const roleInput = document.getElementById('Role');
+            const bioInput = document.getElementById('Bio');
+            const imageUrlInput = document.getElementById('ImageUrl');
+            const instagramInput = document.getElementById('InstagramUrl');
+            const linkedinInput = document.getElementById('LinkedInUrl');
+            
+            const previewImage = document.getElementById('preview-image');
+            const namePreview = document.getElementById('name-preview');
+            const rolePreview = document.getElementById('role-preview');
+            const bioPreview = document.getElementById('bio-preview');
+            const instagramPreview = document.getElementById('instagram-preview');
+            const linkedinPreview = document.getElementById('linkedin-preview');
+
+            function updatePreview() {
+                namePreview.textContent = nameInput.value || 'Enter name';
+                rolePreview.textContent = roleInput.value || 'Enter role';
+                bioPreview.textContent = bioInput.value || 'Enter bio';
+
+                if (imageUrlInput.value) {
+                    previewImage.src = imageUrlInput.value;
+                    previewImage.onerror = function() {
+                        this.src = 'https://via.placeholder.com/200x200?text=Invalid+URL';
+                    };
+                } else {
+                    previewImage.src = 'https://via.placeholder.com/200x200?text=No+Photo';
+                }
+
+                instagramPreview.style.display = instagramInput.value ? 'inline' : 'none';
+                linkedinPreview.style.display = linkedinInput.value ? 'inline' : 'none';
+            }
+
+            nameInput.addEventListener('input', updatePreview);
+            roleInput.addEventListener('input', updatePreview);
+            bioInput.addEventListener('input', updatePreview);
+            imageUrlInput.addEventListener('input', updatePreview);
+            instagramInput.addEventListener('input', updatePreview);
+            linkedinInput.addEventListener('input', updatePreview);
+        });
+    </script>
+}

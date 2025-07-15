@@ -1,0 +1,321 @@
+@model SVMStudio.ViewModels.HomeViewModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- Hero Section with Carousel -->
+<section class="hero-section">
+    <div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-inner hero-carousel-inner">
+            <div class="carousel-item active hero-carousel-item" style="background-image: url('https://images.unsplash.com/photo-1554048612-b6eb8490bd7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                <div class="texture-overlay"></div>
+            </div>
+            <div class="carousel-item hero-carousel-item" style="background-image: url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                <div class="texture-overlay"></div>
+            </div>
+            <div class="carousel-item hero-carousel-item" style="background-image: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                <div class="texture-overlay"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hero-overlay"></div>
+    
+    <div class="hero-content">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h1 class="hero-title">Where Vision <span class="text-ethereal">Meets</span> Art</h1>
+                    <p class="hero-subtitle text-accent">Capturing Beauty Beyond the Lens</p>
+                    <div class="hero-buttons">
+                        <a asp-controller="Home" asp-action="Gallery" class="btn btn-primary me-3">View Our Work</a>
+                        <a asp-controller="Home" asp-action="About" class="btn btn-outline-primary">Our Story</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="scroll-indicator">
+        <span>Scroll to Explore</span>
+    </div>
+</section>
+
+<!-- Featured Portfolio Section -->
+<section class="section" data-aos="fade-up">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="section-title">Featured <span class="text-ethereal">Work</span></h2>
+                <p class="section-subtitle">Discover our latest editorial and fine art photography</p>
+            </div>
+        </div>
+        
+        @if (Model.FeaturedPortfolios != null && Model.FeaturedPortfolios.Any())
+        {
+            <div class="gallery-grid">
+                @foreach (var portfolio in Model.FeaturedPortfolios.Take(6))
+                {
+                    <div class="gallery-item" data-aos="fade-up" data-aos-delay="@(Model.FeaturedPortfolios.IndexOf(portfolio) * 100)">
+                        <div class="gallery-image">
+                            <img src="@portfolio.ImageUrl" alt="@portfolio.Title" class="img-fluid">
+                            <div class="gallery-overlay">
+                                <div class="gallery-content">
+                                    <h4>@portfolio.Title</h4>
+                                    <p>@portfolio.Description</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="gallery-grid">
+                <div class="gallery-item" data-aos="fade-up">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Editorial Portrait" class="img-fluid">
+                        <div class="gallery-overlay">
+                            <div class="gallery-content">
+                                <h4>Editorial Portrait</h4>
+                                <p>Ethereal beauty captured in soft light</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Fine Art Wedding" class="img-fluid">
+                        <div class="gallery-overlay">
+                            <div class="gallery-content">
+                                <h4>Fine Art Wedding</h4>
+                                <p>Romantic moments in dreamy settings</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Fashion Editorial" class="img-fluid">
+                        <div class="gallery-overlay">
+                            <div class="gallery-content">
+                                <h4>Fashion Editorial</h4>
+                                <p>Artistic vision meets high fashion</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1544717297-fa95b6ee9643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Conceptual Art" class="img-fluid">
+                        <div class="gallery-overlay">
+                            <div class="gallery-content">
+                                <h4>Conceptual Art</h4>
+                                <p>Surreal beauty in pastel tones</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Botanical Beauty" class="img-fluid">
+                        <div class="gallery-overlay">
+                            <div class="gallery-content">
+                                <h4>Botanical Beauty</h4>
+                                <p>Nature-inspired fine art photography</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="500">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Dreamy Portraiture" class="img-fluid">
+                        <div class="gallery-overlay">
+                            <div class="gallery-content">
+                                <h4>Dreamy Portraiture</h4>
+                                <p>Soft, ethereal portrait styling</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        
+        <div class="row">
+            <div class="col-12 text-center mt-5">
+                <a asp-controller="Home" asp-action="Gallery" class="btn btn-outline-primary">View Complete Gallery</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="section" style="background: var(--gradient-ethereal);" data-aos="fade-up">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="section-title">Our <span class="text-ethereal">Services</span></h2>
+                <p class="section-subtitle">Specialized photography and styling packages</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            @if (Model.Services != null && Model.Services.Any())
+            {
+                @foreach (var service in Model.Services.Take(4))
+                {
+                    <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="@(Model.Services.IndexOf(service) * 100)">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <h4>@service.Name</h4>
+                            <p>@service.Description</p>
+                            <div class="service-price">
+                                <span class="price">@service.Price.ToString("C")</span>
+                            </div>
+                            <a asp-controller="Home" asp-action="Services" class="btn btn-outline-primary btn-sm">Learn More</a>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h4>Editorial Photography</h4>
+                        <p>High-end editorial shoots with creative styling and concept development</p>
+                        <ul class="service-features">
+                            <li>Concept Development</li>
+                            <li>Creative Styling</li>
+                            <li>Professional Editing</li>
+                            <li>High-Resolution Images</li>
+                        </ul>
+                        <div class="service-price">
+                            <span class="price">From $800</span>
+                        </div>
+                        <a asp-controller="Home" asp-action="Services" class="btn btn-outline-primary btn-sm">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4>Fine Art Portraits</h4>
+                        <p>Ethereal portrait sessions with artistic styling and dreamy aesthetics</p>
+                        <ul class="service-features">
+                            <li>Artistic Direction</li>
+                            <li>Makeup & Hair Styling</li>
+                            <li>Wardrobe Consultation</li>
+                            <li>Fine Art Prints</li>
+                        </ul>
+                        <div class="service-price">
+                            <span class="price">From $600</span>
+                        </div>
+                        <a asp-controller="Home" asp-action="Services" class="btn btn-outline-primary btn-sm">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <h4>Creative Styling</h4>
+                        <p>Complete styling services for shoots, including wardrobe and set design</p>
+                        <ul class="service-features">
+                            <li>Wardrobe Styling</li>
+                            <li>Set Design</li>
+                            <li>Prop Sourcing</li>
+                            <li>Color Coordination</li>
+                        </ul>
+                        <div class="service-price">
+                            <span class="price">From $400</span>
+                        </div>
+                        <a asp-controller="Home" asp-action="Services" class="btn btn-outline-primary btn-sm">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <h4>Behind the Scenes</h4>
+                        <p>Documenting the creative process with artistic flair and attention to detail</p>
+                        <ul class="service-features">
+                            <li>Process Documentation</li>
+                            <li>Candid Moments</li>
+                            <li>Creative Insights</li>
+                            <li>Story Telling</li>
+                        </ul>
+                        <div class="service-price">
+                            <span class="price">From $300</span>
+                        </div>
+                        <a asp-controller="Home" asp-action="Services" class="btn btn-outline-primary btn-sm">Learn More</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Studio Philosophy Section -->
+<section class="section" data-aos="fade-up">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4" data-aos="slide-in-left">
+                <h2 class="section-title text-start">Our <span class="text-ethereal">Philosophy</span></h2>
+                <p class="text-accent">"Art is not what you see, but what you make others see."</p>
+                <p>At SVM Studio, we believe in creating more than just photographs—we craft visual poetry. Our approach combines fine art sensibilities with editorial excellence, resulting in imagery that transcends the ordinary.</p>
+                <p>Every session is a collaborative journey where your vision meets our artistic expertise. We specialize in ethereal, dreamy aesthetics that capture the essence of beauty in its most authentic form.</p>
+                <p>Our boutique studio experience ensures personalized attention to every detail, from concept development to final delivery, creating timeless pieces that tell your unique story.</p>
+                <a asp-controller="Home" asp-action="About" class="btn btn-primary">Meet Our Team</a>
+            </div>
+            <div class="col-lg-6" data-aos="slide-in-right">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1554048612-b6eb8490bd7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="SVM Studio Philosophy" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="section" style="background: var(--gradient-dreamy);" data-aos="fade-up">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
+                <h2 class="text-white">Ready to Create <span class="text-accent">Something Beautiful?</span></h2>
+                <p class="lead text-white">Let's collaborate to bring your artistic vision to life through dreamy, ethereal photography that captures the essence of beauty.</p>
+                <div class="mt-4">
+                    <a asp-controller="Home" asp-action="Booking" class="btn btn-outline-primary btn-lg me-3" style="border-color: white; color: white;">Book Your Session</a>
+                    <a asp-controller="Home" asp-action="Contact" class="btn btn-primary btn-lg" style="background: white; color: var(--primary-color);">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        // Parallax effect for hero section
+        $(window).scroll(function() {
+            var scrolled = $(this).scrollTop();
+            $('.hero-carousel-item').css('transform', 'translateY(' + (scrolled * 0.5) + 'px)');
+        });
+
+        // Gallery item hover effects
+        $('.gallery-item').hover(
+            function() {
+                $(this).find('.gallery-image img').addClass('hover-scale');
+            },
+            function() {
+                $(this).find('.gallery-image img').removeClass('hover-scale');
+            }
+        );
+    </script>
+}

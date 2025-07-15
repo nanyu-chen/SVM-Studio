@@ -1,0 +1,143 @@
+@model IEnumerable<Booking>
+@{
+    ViewData["Title"] = "Bookings Management";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Bookings Management</h1>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">All Bookings</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped data-table">
+                <thead>
+                    <tr>
+                        <th>Client</th>
+                        <th>Service</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var booking in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <strong>@booking.Name</strong>
+                                    <br><small class="text-muted">@booking.Email</small>
+                                    @if (!string.IsNullOrEmpty(booking.Phone))
+                                    {
+                                        <br><small class="text-muted">@booking.Phone</small>
+                                    }
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary">@booking.ServiceType</span>
+                                </td>
+                                <td>
+                                    @booking.PreferredDate.ToString("MMM dd, yyyy")
+                                </td>
+                                <td>
+                                    @switch (booking.Status)
+                                    {
+                                        case "Pending":
+                                            <span class="badge bg-warning">@booking.Status</span>
+                                            break;
+                                        case "Confirmed":
+                                            <span class="badge bg-success">@booking.Status</span>
+                                            break;
+                                        case "Cancelled":
+                                            <span class="badge bg-danger">@booking.Status</span>
+                                            break;
+                                        default:
+                                            <span class="badge bg-secondary">@booking.Status</span>
+                                            break;
+                                    }
+                                </td>
+                                <td>
+                                    @booking.CreatedAt.ToString("MMM dd, yyyy")
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="/Admin/BookingDetails/@booking.Id" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <div class="btn-group">
+                                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                                Status
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#" onclick="updateStatus(@booking.Id, 'Pending')">Pending</a></li>
+                                                <li><a class="dropdown-item" href="#" onclick="updateStatus(@booking.Id, 'Confirmed')">Confirmed</a></li>
+                                                <li><a class="dropdown-item" href="#" onclick="updateStatus(@booking.Id, 'Cancelled')">Cancelled</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-4">
+                                <i class="fas fa-calendar-alt fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">No bookings found.</p>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function updateStatus(bookingId, status) {
+            if (confirm('Are you sure you want to update this booking status?')) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/Admin/UpdateBookingStatus';
+                
+                const idInput = document.createElement('input');
+                idInput.type = 'hidden';
+                idInput.name = 'id';
+                idInput.value = bookingId;
+                
+                const statusInput = document.createElement('input');
+                statusInput.type = 'hidden';
+                statusInput.name = 'status';
+                statusInput.value = status;
+                
+                const tokenInput = document.createElement('input');
+                tokenInput.type = 'hidden';
+                tokenInput.name = '__RequestVerificationToken';
+                tokenInput.value = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                
+                form.appendChild(idInput);
+                form.appendChild(statusInput);
+                form.appendChild(tokenInput);
+                
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    </script>
+}

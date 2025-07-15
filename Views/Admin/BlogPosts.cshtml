@@ -1,0 +1,116 @@
+@model IEnumerable<BlogPost>
+@{
+    ViewData["Title"] = "Blog Posts Management";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Blog Posts Management</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="/Admin/CreateBlogPost" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Create New Post
+        </a>
+    </div>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">All Blog Posts</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped data-table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                        <th>Published</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var post in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(post.ImageUrl))
+                                    {
+                                        <img src="@post.ImageUrl" alt="@post.Title" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;" />
+                                    }
+                                    else
+                                    {
+                                        <div class="bg-light d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                            <i class="fas fa-newspaper text-muted"></i>
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    <strong>@post.Title</strong>
+                                    @if (!string.IsNullOrEmpty(post.Excerpt))
+                                    {
+                                        <br><small class="text-muted">@(post.Excerpt.Length > 60 ? post.Excerpt.Substring(0, 60) + "..." : post.Excerpt)</small>
+                                    }
+                                </td>
+                                <td>
+                                    @if (post.IsPublished)
+                                    {
+                                        <span class="badge bg-success">Published</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning">Draft</span>
+                                    }
+                                </td>
+                                <td>
+                                    @post.CreatedAt.ToString("MMM dd, yyyy")
+                                </td>
+                                <td>
+                                    @if (post.PublishedAt.HasValue)
+                                    {
+                                        @post.PublishedAt.Value.ToString("MMM dd, yyyy")
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Not published</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="/Admin/EditBlogPost/@post.Id" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="/Admin/DeleteBlogPost/@post.Id" class="btn btn-sm btn-outline-danger btn-delete" data-item-name="blog post">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-4">
+                                <i class="fas fa-newspaper fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">No blog posts found.</p>
+                                <a href="/Admin/CreateBlogPost" class="btn btn-primary">Create Your First Post</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,170 @@
+@model dynamic
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dashboard</h1>
+</div>
+
+<!-- Stats Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">Total Bookings</h4>
+                        <h2 class="mb-0">@Model.TotalBookings</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-calendar-alt fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">Portfolio Items</h4>
+                        <h2 class="mb-0">@Model.TotalPortfolios</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-images fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">Pending Bookings</h4>
+                        <h2 class="mb-0">@Model.PendingBookings</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-blog fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">Unread Messages</h4>
+                        <h2 class="mb-0">@Model.TotalMessages</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-envelope fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Recent Bookings</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Service</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sarah Johnson</td>
+                                <td>Wedding</td>
+                                <td>2024-04-15</td>
+                                <td><span class="badge bg-warning">Pending</span></td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">View</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Mike Chen</td>
+                                <td>Portrait</td>
+                                <td>2024-04-12</td>
+                                <td><span class="badge bg-success">Confirmed</span></td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">View</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Emma Wilson</td>
+                                <td>Commercial</td>
+                                <td>2024-04-10</td>
+                                <td><span class="badge bg-info">Completed</span></td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">View</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="/Admin/Portfolio/Create" class="btn btn-primary">Add Portfolio Item</a>
+                    <a href="/Admin/BlogPosts/Create" class="btn btn-success">Create Blog Post</a>
+                    <a href="/Admin/Services/Create" class="btn btn-warning">Add Service</a>
+                    <a href="/Admin/Bookings" class="btn btn-info">View All Bookings</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="card-title">Recent Messages</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">John Doe</h6>
+                            <small>2 hours ago</small>
+                        </div>
+                        <p class="mb-1">Interested in wedding photography...</p>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">Jane Smith</h6>
+                            <small>5 hours ago</small>
+                        </div>
+                        <p class="mb-1">Question about portrait sessions...</p>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="/Admin/Messages" class="btn btn-sm btn-outline-primary">View All Messages</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

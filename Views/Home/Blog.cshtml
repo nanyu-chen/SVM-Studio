@@ -1,0 +1,272 @@
+@model BlogViewModel
+@{
+    ViewData["Title"] = "Blog";
+}
+
+<!-- Hero Section -->
+<section class="hero-section blog-hero">
+    <div class="hero-overlay"></div>
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-12 text-center" data-aos="fade-up">
+                <h1 class="hero-title">Blog & Inspiration</h1>
+                <p class="hero-subtitle">Stories, tips, and behind-the-scenes moments</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Post Section -->
+@if (Model?.FeaturedPost != null)
+{
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12" data-aos="fade-up">
+                    <div class="featured-post">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6">
+                                <img src="@Model.FeaturedPost.ImageUrl" alt="@Model.FeaturedPost.Title" class="img-fluid rounded shadow">
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="featured-content p-4">
+                                    <span class="badge bg-primary mb-2">Featured</span>
+                                    <h2 class="featured-title">@Model.FeaturedPost.Title</h2>
+                                    <p class="featured-excerpt">@Model.FeaturedPost.Excerpt</p>
+                                    <div class="post-meta mb-3">
+                                        <small class="text-muted">
+                                            <i class="fas fa-calendar-alt"></i> @Model.FeaturedPost.PublishedDate.ToString("MMMM dd, yyyy")
+                                            <i class="fas fa-user ms-3"></i> @Model.FeaturedPost.Author
+                                        </small>
+                                    </div>
+                                    <a href="/Home/BlogPost/@Model.FeaturedPost.Id" class="btn btn-primary">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+<!-- Blog Posts Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Latest Stories</h2>
+                <p class="section-subtitle">Discover our recent work and photography insights</p>
+            </div>
+        </div>
+        <div class="row">
+            @if (Model?.BlogPosts != null && Model.BlogPosts.Any())
+            {
+                @foreach (var post in Model.BlogPosts)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+                        <article class="blog-card h-100">
+                            <div class="blog-image">
+                                <img src="@post.ImageUrl" alt="@post.Title" class="img-fluid">
+                                <div class="blog-category">@post.Category</div>
+                            </div>
+                            <div class="blog-content p-4">
+                                <h3 class="blog-title">
+                                    <a href="/Home/BlogPost/@post.Id">@post.Title</a>
+                                </h3>
+                                <p class="blog-excerpt">@post.Excerpt</p>
+                                <div class="blog-meta">
+                                    <small class="text-muted">
+                                        <i class="fas fa-calendar-alt"></i> @post.PublishedDate.ToString("MMM dd, yyyy")
+                                        <i class="fas fa-user ms-3"></i> @post.Author
+                                    </small>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- Sample Blog Posts -->
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+                    <article class="blog-card h-100">
+                        <div class="blog-image">
+                            <img src="~/images/blog-1.jpg" alt="Wedding Photography Tips" class="img-fluid">
+                            <div class="blog-category">Photography Tips</div>
+                        </div>
+                        <div class="blog-content p-4">
+                            <h3 class="blog-title">
+                                <a href="/Home/BlogPost/1">10 Tips for Perfect Wedding Photos</a>
+                            </h3>
+                            <p class="blog-excerpt">Discover our professional secrets for capturing stunning wedding moments that couples will cherish forever.</p>
+                            <div class="blog-meta">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar-alt"></i> Mar 15, 2024
+                                    <i class="fas fa-user ms-3"></i> Sarah Mitchell
+                                </small>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <article class="blog-card h-100">
+                        <div class="blog-image">
+                            <img src="~/images/blog-2.jpg" alt="Portrait Session Prep" class="img-fluid">
+                            <div class="blog-category">Behind the Scenes</div>
+                        </div>
+                        <div class="blog-content p-4">
+                            <h3 class="blog-title">
+                                <a href="/Home/BlogPost/2">How to Prepare for Your Portrait Session</a>
+                            </h3>
+                            <p class="blog-excerpt">Everything you need to know to feel confident and look your best during your portrait session.</p>
+                            <div class="blog-meta">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar-alt"></i> Mar 12, 2024
+                                    <i class="fas fa-user ms-3"></i> Victoria Chen
+                                </small>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <article class="blog-card h-100">
+                        <div class="blog-image">
+                            <img src="~/images/blog-3.jpg" alt="Studio Update" class="img-fluid">
+                            <div class="blog-category">Studio News</div>
+                        </div>
+                        <div class="blog-content p-4">
+                            <h3 class="blog-title">
+                                <a href="/Home/BlogPost/3">Our New Studio Space: A Tour</a>
+                            </h3>
+                            <p class="blog-excerpt">Take a peek inside our newly renovated studio space designed for comfort and creativity.</p>
+                            <div class="blog-meta">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar-alt"></i> Mar 08, 2024
+                                    <i class="fas fa-user ms-3"></i> Michael Rodriguez
+                                </small>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <article class="blog-card h-100">
+                        <div class="blog-image">
+                            <img src="~/images/blog-4.jpg" alt="Engagement Session" class="img-fluid">
+                            <div class="blog-category">Recent Work</div>
+                        </div>
+                        <div class="blog-content p-4">
+                            <h3 class="blog-title">
+                                <a href="/Home/BlogPost/4">Sarah & David's Magical Engagement Session</a>
+                            </h3>
+                            <p class="blog-excerpt">A beautiful sunset engagement session at the beach that perfectly captured their love story.</p>
+                            <div class="blog-meta">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar-alt"></i> Mar 05, 2024
+                                    <i class="fas fa-user ms-3"></i> Sarah Mitchell
+                                </small>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <article class="blog-card h-100">
+                        <div class="blog-image">
+                            <img src="~/images/blog-5.jpg" alt="Fashion Shoot" class="img-fluid">
+                            <div class="blog-category">Fashion</div>
+                        </div>
+                        <div class="blog-content p-4">
+                            <h3 class="blog-title">
+                                <a href="/Home/BlogPost/5">Editorial Fashion Shoot: Urban Elegance</a>
+                            </h3>
+                            <p class="blog-excerpt">Behind the scenes of our latest fashion editorial featuring contemporary urban style.</p>
+                            <div class="blog-meta">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar-alt"></i> Mar 01, 2024
+                                    <i class="fas fa-user ms-3"></i> Victoria Chen
+                                </small>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="500">
+                    <article class="blog-card h-100">
+                        <div class="blog-image">
+                            <img src="~/images/blog-6.jpg" alt="Color Theory" class="img-fluid">
+                            <div class="blog-category">Education</div>
+                        </div>
+                        <div class="blog-content p-4">
+                            <h3 class="blog-title">
+                                <a href="/Home/BlogPost/6">The Art of Color in Photography</a>
+                            </h3>
+                            <p class="blog-excerpt">Understanding how color theory can transform your photographs and create emotional impact.</p>
+                            <div class="blog-meta">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar-alt"></i> Feb 28, 2024
+                                    <i class="fas fa-user ms-3"></i> Michael Rodriguez
+                                </small>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            }
+        </div>
+        
+        <!-- Pagination -->
+        <div class="row">
+            <div class="col-lg-12 text-center mt-4" data-aos="fade-up">
+                <nav aria-label="Blog pagination">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center" data-aos="fade-up">
+                <h2 class="section-title">Stay Inspired</h2>
+                <p class="section-subtitle">Subscribe to our newsletter for photography tips, inspiration, and studio updates</p>
+                <form class="newsletter-form">
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Enter your email address" required>
+                        <button class="btn btn-primary" type="submit">Subscribe</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Sidebar (Hidden on mobile, shown on larger screens) -->
+<div class="blog-sidebar d-none d-lg-block">
+    <div class="sidebar-widget">
+        <h5>Categories</h5>
+        <ul class="category-list">
+            <li><a href="#">Photography Tips</a> <span>(12)</span></li>
+            <li><a href="#">Behind the Scenes</a> <span>(8)</span></li>
+            <li><a href="#">Recent Work</a> <span>(15)</span></li>
+            <li><a href="#">Studio News</a> <span>(5)</span></li>
+            <li><a href="#">Fashion</a> <span>(7)</span></li>
+            <li><a href="#">Education</a> <span>(10)</span></li>
+        </ul>
+    </div>
+</div>

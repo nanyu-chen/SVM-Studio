@@ -1,0 +1,116 @@
+@model IEnumerable<Service>
+@{
+    ViewData["Title"] = "Services Management";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Services Management</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="/Admin/CreateService" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Add New Service
+        </a>
+    </div>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">All Services</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped data-table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Duration</th>
+                        <th>Sort Order</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var service in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(service.ImageUrl))
+                                    {
+                                        <img src="@service.ImageUrl" alt="@service.Name" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;" />
+                                    }
+                                    else
+                                    {
+                                        <div class="bg-light d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                            <i class="fas fa-camera text-muted"></i>
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    <strong>@service.Name</strong>
+                                    @if (!string.IsNullOrEmpty(service.Description))
+                                    {
+                                        <br><small class="text-muted">@(service.Description.Length > 50 ? service.Description.Substring(0, 50) + "..." : service.Description)</small>
+                                    }
+                                </td>
+                                <td>
+                                    @if (service.Price > 0)
+                                    {
+                                        <span class="fw-bold">$@service.Price.ToString("N0")</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Contact for pricing</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(service.Duration))
+                                    {
+                                        <span class="badge bg-info">@service.Duration</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">-</span>
+                                    }
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary">@service.SortOrder</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="/Admin/EditService/@service.Id" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="/Admin/DeleteService/@service.Id" class="btn btn-sm btn-outline-danger btn-delete" data-item-name="service">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-4">
+                                <i class="fas fa-concierge-bell fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">No services found.</p>
+                                <a href="/Admin/CreateService" class="btn btn-primary">Add Your First Service</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

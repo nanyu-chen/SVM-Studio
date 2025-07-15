@@ -1,0 +1,189 @@
+@model BlogPost
+@{
+    ViewData["Title"] = "Create Blog Post";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Create Blog Post</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="/Admin/BlogPosts" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Blog Posts
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Blog Post Details</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="CreateBlogPost" method="post">
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label">Title</label>
+                        <input asp-for="Title" class="form-control" placeholder="Enter blog post title" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Excerpt" class="form-label">Excerpt</label>
+                        <textarea asp-for="Excerpt" class="form-control" rows="2" placeholder="Enter a brief excerpt or summary"></textarea>
+                        <span asp-validation-for="Excerpt" class="text-danger"></span>
+                        <div class="form-text">This appears on the blog listing page</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Content" class="form-label">Content</label>
+                        <textarea asp-for="Content" class="form-control" rows="12" placeholder="Enter the full blog post content"></textarea>
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Author" class="form-label">Author</label>
+                                <input asp-for="Author" class="form-control" placeholder="Author name" />
+                                <span asp-validation-for="Author" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Category" class="form-label">Category</label>
+                                <select asp-for="Category" class="form-select">
+                                    <option value="">Select a category</option>
+                                    <option value="Photography Tips">Photography Tips</option>
+                                    <option value="Behind the Scenes">Behind the Scenes</option>
+                                    <option value="Client Stories">Client Stories</option>
+                                    <option value="Industry News">Industry News</option>
+                                    <option value="Inspiration">Inspiration</option>
+                                    <option value="Tutorials">Tutorials</option>
+                                </select>
+                                <span asp-validation-for="Category" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ImageUrl" class="form-label">Featured Image URL</label>
+                        <input asp-for="ImageUrl" class="form-control" placeholder="Enter featured image URL" />
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                        <div class="form-text">This image will be displayed as the featured image</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input asp-for="IsPublished" class="form-check-input" type="checkbox" />
+                            <label asp-for="IsPublished" class="form-check-label">
+                                Publish immediately
+                            </label>
+                        </div>
+                        <div class="form-text">Uncheck to save as draft</div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="/Admin/BlogPosts" class="btn btn-outline-secondary">Cancel</a>
+                        <div>
+                            <button type="submit" class="btn btn-outline-primary me-2">
+                                <i class="fas fa-save me-2"></i>Save Draft
+                            </button>
+                            <button type="submit" class="btn btn-primary" onclick="document.getElementById('IsPublished').checked = true;">
+                                <i class="fas fa-paper-plane me-2"></i>Publish Post
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Preview</h5>
+            </div>
+            <div class="card-body">
+                <div id="image-preview" class="mb-3">
+                    <img id="preview-image" src="https://via.placeholder.com/300x200?text=No+Image" alt="Preview" class="img-fluid rounded" style="max-height: 150px; width: 100%; object-fit: cover;">
+                </div>
+                <div id="title-preview" class="fw-bold mb-2">Enter title</div>
+                <div id="excerpt-preview" class="text-muted small mb-2">Enter excerpt</div>
+                <div class="d-flex justify-content-between text-muted small">
+                    <span id="author-preview">Author</span>
+                    <span id="category-preview">Category</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Publishing</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-2">
+                    <strong>Status:</strong> <span id="status-preview" class="badge bg-warning">Draft</span>
+                </div>
+                <div class="mb-2">
+                    <strong>Created:</strong> <span class="text-muted">Now</span>
+                </div>
+                <div class="text-muted small">
+                    Blog posts can be saved as drafts or published immediately. Published posts will appear on the public blog page.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Live preview
+        document.addEventListener('DOMContentLoaded', function() {
+            const titleInput = document.getElementById('Title');
+            const excerptInput = document.getElementById('Excerpt');
+            const authorInput = document.getElementById('Author');
+            const categoryInput = document.getElementById('Category');
+            const imageUrlInput = document.getElementById('ImageUrl');
+            const isPublishedInput = document.getElementById('IsPublished');
+            
+            const previewImage = document.getElementById('preview-image');
+            const titlePreview = document.getElementById('title-preview');
+            const excerptPreview = document.getElementById('excerpt-preview');
+            const authorPreview = document.getElementById('author-preview');
+            const categoryPreview = document.getElementById('category-preview');
+            const statusPreview = document.getElementById('status-preview');
+
+            function updatePreview() {
+                titlePreview.textContent = titleInput.value || 'Enter title';
+                excerptPreview.textContent = excerptInput.value || 'Enter excerpt';
+                authorPreview.textContent = authorInput.value || 'Author';
+                categoryPreview.textContent = categoryInput.value || 'Category';
+
+                if (imageUrlInput.value) {
+                    previewImage.src = imageUrlInput.value;
+                    previewImage.onerror = function() {
+                        this.src = 'https://via.placeholder.com/300x200?text=Invalid+URL';
+                    };
+                } else {
+                    previewImage.src = 'https://via.placeholder.com/300x200?text=No+Image';
+                }
+
+                if (isPublishedInput.checked) {
+                    statusPreview.textContent = 'Published';
+                    statusPreview.className = 'badge bg-success';
+                } else {
+                    statusPreview.textContent = 'Draft';
+                    statusPreview.className = 'badge bg-warning';
+                }
+            }
+
+            titleInput.addEventListener('input', updatePreview);
+            excerptInput.addEventListener('input', updatePreview);
+            authorInput.addEventListener('input', updatePreview);
+            categoryInput.addEventListener('change', updatePreview);
+            imageUrlInput.addEventListener('input', updatePreview);
+            isPublishedInput.addEventListener('change', updatePreview);
+        });
+    </script>
+}

@@ -1,0 +1,264 @@
+@{
+    ViewData["Title"] = "About Us";
+}
+
+<!-- Hero Section -->
+<section class="hero-section about-hero">
+    <div class="hero-overlay"></div>
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h1 class="hero-title">Our Story</h1>
+                <p class="hero-subtitle">Creating timeless moments through the art of photography</p>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="hero-image-container">
+                    <img src="~/images/about-hero.jpg" alt="SVM Studio Team" class="img-fluid rounded shadow-lg">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Story Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center" data-aos="fade-up">
+                <h2 class="section-title">Founded on Passion</h2>
+                <p class="lead">
+                    SVM Studio began as a dream to capture the extraordinary in the ordinary. 
+                    Founded in 2018 by a team of passionate photographers and stylists, 
+                    we believe that every moment deserves to be preserved with artistry and care.
+                </p>
+                <p>
+                    Our journey started with a simple vision: to create photographs that tell stories, 
+                    evoke emotions, and become treasured memories for generations. Today, we're proud 
+                    to be one of the most sought-after photography studios, known for our elegant 
+                    aesthetic and personalized approach.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Philosophy Section -->
+<section class="py-5 philosophy-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 philosophy-content" data-aos="fade-up">
+                <div class="philosophy-quote">
+                    "We believe that photography is not just about capturing images — it's about creating art that resonates with emotion and beauty."
+                </div>
+                <div class="philosophy-text">
+                    @Model.StudioPhilosophy
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Our Values</h2>
+                <p class="section-subtitle">What drives us every day</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="values-card">
+                    <div class="values-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4>Passion</h4>
+                    <p>We pour our hearts into every shoot, ensuring each image reflects our dedication to the craft and our love for storytelling through photography.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="values-card">
+                    <div class="values-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>Excellence</h4>
+                    <p>We strive for perfection in every detail, from lighting to composition to final editing, delivering images that exceed expectations.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="values-card">
+                    <div class="values-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h4>Connection</h4>
+                    <p>We believe in building genuine relationships with our clients to capture their true essence and create authentic, meaningful images.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="values-card">
+                    <div class="values-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h4>Artistry</h4>
+                    <p>Every photograph we create is a work of art, carefully composed and edited to reflect our signature dreamy, ethereal aesthetic.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="500">
+                <div class="values-card">
+                    <div class="values-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h4>Innovation</h4>
+                    <p>We continuously evolve our techniques and embrace new technologies to push the boundaries of creative photography.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="600">
+                <div class="values-card">
+                    <div class="values-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h4>Elegance</h4>
+                    <p>Our refined, sophisticated approach ensures that every image embodies the timeless elegance and beauty that defines SVM Studio.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Meet Our Team</h2>
+                <p class="section-subtitle">The creative minds behind SVM Studio</p>
+            </div>
+        </div>
+        <div class="row">
+            @if (Model.TeamMembers != null && Model.TeamMembers.Count > 0)
+            {
+                int index = 0;
+                @foreach (var member in Model.TeamMembers)
+                {
+                    <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up" data-aos-delay="@(index * 100)">
+                        <div class="team-member-card">
+                            <div class="team-image">
+                                <img src="@member.ImageUrl" alt="@member.Name" class="img-fluid">
+                                <div class="team-overlay">
+                                    <div class="team-social">
+                                        @if (!string.IsNullOrEmpty(member.InstagramUrl))
+                                        {
+                                            <a href="@member.InstagramUrl" target="_blank" rel="noopener noreferrer">
+                                                <i class="fab fa-instagram"></i>
+                                            </a>
+                                        }
+                                        @if (!string.IsNullOrEmpty(member.LinkedInUrl))
+                                        {
+                                            <a href="@member.LinkedInUrl" target="_blank" rel="noopener noreferrer">
+                                                <i class="fab fa-linkedin-in"></i>
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <h4 class="team-name">@member.Name</h4>
+                                <p class="team-role">@member.Role</p>
+                                <p class="team-bio">@member.Bio</p>
+                            </div>
+                        </div>
+                    </div>
+                    index++;
+                }
+            }
+            else
+            {
+                <!-- Sample Team Members -->
+                <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-member-card">
+                        <div class="team-image">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Sarah Mitchell" class="img-fluid">
+                            <div class="team-overlay">
+                                <div class="team-social">
+                                    <a href="#" target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    <a href="#" target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team-content">
+                            <h4 class="team-name">Sarah Mitchell</h4>
+                            <p class="team-role">Lead Photographer & Creative Director</p>
+                            <p class="team-bio">With over 12 years of experience in fashion and wedding photography, Sarah brings an artistic eye and passion for storytelling to every shoot.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-member-card">
+                        <div class="team-image">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Michael Chen" class="img-fluid">
+                            <div class="team-overlay">
+                                <div class="team-social">
+                                    <a href="#" target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    <a href="#" target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team-content">
+                            <h4 class="team-name">Michael Chen</h4>
+                            <p class="team-role">Senior Photographer</p>
+                            <p class="team-bio">Michael specializes in commercial and portrait photography, bringing technical expertise and creative vision to every project.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up" data-aos-delay="300">
+                    <div class="team-member-card">
+                        <div class="team-image">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Emily Rodriguez" class="img-fluid">
+                            <div class="team-overlay">
+                                <div class="team-social">
+                                    <a href="#" target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    <a href="#" target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team-content">
+                            <h4 class="team-name">Emily Rodriguez</h4>
+                            <p class="team-role">Stylist & Creative Assistant</p>
+                            <p class="team-bio">Emily brings fashion expertise and styling knowledge to our team, ensuring every shoot has the perfect aesthetic.</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8" data-aos="fade-up">
+                <h2 class="mb-4">Ready to Create Magic Together?</h2>
+                <p class="lead mb-4">
+                    Let's discuss your vision and create something extraordinary that you'll treasure forever.
+                </p>
+                <a href="/Home/Contact" class="btn btn-light btn-lg">Get in Touch</a>
+            </div>
+        </div>
+    </div>
+</section>

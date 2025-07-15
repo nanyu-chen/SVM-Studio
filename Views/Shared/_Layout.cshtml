@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SVM Studio</title>
+    <meta name="description" content="SVM Studio - Where Vision Meets Art. High-end photography and styling studio specializing in elegant, dreamy, and artistic imagery." />
+    
+    <!-- Bootstrap & Custom CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SVMStudio.styles.css" asp-append-version="true" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <span class="text-ethereal">SVM</span> Studio
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Gallery">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Blog">Inspiration</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary ms-2" asp-controller="Home" asp-action="Booking">Book Session</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-ethereal text-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="footer-brand mb-4">
+                        <h4 class="mb-3">
+                            <span class="text-ethereal fw-bold">SVM</span> 
+                            <span class="text-light">Studio</span>
+                        </h4>
+                        <p class="text-accent mb-3 fst-italic">"Where Vision Meets Art"</p>
+                        <p class="text-light-emphasis mb-4">
+                            Creating dreamy, ethereal imagery that captures the essence of beauty 
+                            and emotion through fine art photography and styling.
+                        </p>
+                    </div>
+                    <div class="social-links">
+                        <h6 class="mb-3 text-light">Follow Our Journey</h6>
+                        <div class="d-flex gap-3">
+                            <a href="#" aria-label="Instagram" class="social-link">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" aria-label="Facebook" class="social-link">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a href="#" aria-label="Pinterest" class="social-link">
+                                <i class="fab fa-pinterest"></i>
+                            </a>
+                            <a href="#" aria-label="WeChat" class="social-link">
+                                <i class="fab fa-weixin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="mb-3 text-light border-bottom border-ethereal pb-2">Navigation</h6>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2">
+                            <a asp-controller="Home" asp-action="About" class="text-light-emphasis text-decoration-none">
+                                <i class="fas fa-angle-right me-2 text-ethereal"></i>About Us
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a asp-controller="Home" asp-action="Gallery" class="text-light-emphasis text-decoration-none">
+                                <i class="fas fa-angle-right me-2 text-ethereal"></i>Gallery
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a asp-controller="Home" asp-action="Services" class="text-light-emphasis text-decoration-none">
+                                <i class="fas fa-angle-right me-2 text-ethereal"></i>Services
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a asp-controller="Home" asp-action="Contact" class="text-light-emphasis text-decoration-none">
+                                <i class="fas fa-angle-right me-2 text-ethereal"></i>Contact
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h6 class="mb-3 text-light border-bottom border-ethereal pb-2">Our Services</h6>
+                    <ul class="list-unstyled footer-services">
+                        <li class="mb-2 d-flex align-items-start">
+                            <i class="fas fa-camera text-ethereal me-2 mt-1"></i>
+                            <span class="text-light-emphasis">Editorial Photography</span>
+                        </li>
+                        <li class="mb-2 d-flex align-items-start">
+                            <i class="fas fa-portrait text-ethereal me-2 mt-1"></i>
+                            <span class="text-light-emphasis">Fine Art Portraits</span>
+                        </li>
+                        <li class="mb-2 d-flex align-items-start">
+                            <i class="fas fa-palette text-ethereal me-2 mt-1"></i>
+                            <span class="text-light-emphasis">Creative Styling</span>
+                        </li>
+                        <li class="mb-2 d-flex align-items-start">
+                            <i class="fas fa-lightbulb text-ethereal me-2 mt-1"></i>
+                            <span class="text-light-emphasis">Conceptual Shoots</span>
+                        </li>
+                        <li class="mb-2 d-flex align-items-start">
+                            <i class="fas fa-video text-ethereal me-2 mt-1"></i>
+                            <span class="text-light-emphasis">Behind the Scenes</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h6 class="mb-3 text-light border-bottom border-ethereal pb-2">Studio Contact</h6>
+                    <ul class="list-unstyled footer-contact">
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-map-marker-alt text-ethereal me-3 mt-1"></i>
+                            <div>
+                                <span class="text-light-emphasis">123 Creative District</span><br>
+                                <span class="text-light-emphasis">Art City</span>
+                            </div>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="fas fa-phone text-ethereal me-3"></i>
+                            <a href="tel:+15551234567" class="text-light-emphasis text-decoration-none">(555) 123-4567</a>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="fas fa-envelope text-ethereal me-3"></i>
+                            <a href="mailto:hello@svmstudio.com" class="text-light-emphasis text-decoration-none">hello@svmstudio.com</a>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="fab fa-weixin text-ethereal me-3"></i>
+                            <span class="text-light-emphasis">SVMStudio_WeChat</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0 text-light-emphasis">&copy; 2024 SVM Studio. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-light-emphasis text-decoration-none me-3 footer-bottom-link">Privacy Policy</a>
+                    <a href="#" class="text-light-emphasis text-decoration-none me-3 footer-bottom-link">Terms of Service</a>
+                    <a asp-controller="Admin" asp-action="Index" class="text-light-emphasis text-decoration-none footer-bottom-link admin-link">Admin</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <!-- Initialize AOS -->
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+    </script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

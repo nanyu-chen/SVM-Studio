@@ -1,0 +1,79 @@
+@model Service
+@{
+    ViewData["Title"] = "Delete Service";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Delete Service</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="/Admin/Services" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Services
+        </a>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Confirm Deletion
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-danger">
+                    <strong>Warning:</strong> This action cannot be undone. Are you sure you want to delete this service?
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid rounded mb-3" style="max-height: 200px; width: 100%; object-fit: cover;">
+                        }
+                        else
+                        {
+                            <div class="bg-light d-flex align-items-center justify-content-center rounded mb-3" style="height: 200px;">
+                                <i class="fas fa-camera fa-3x text-muted"></i>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-8">
+                        <h4>@Model.Name</h4>
+                        <p class="text-muted">@Model.Description</p>
+                        <p><strong>Price:</strong> 
+                            @if (Model.Price > 0)
+                            {
+                                <span class="text-primary fw-bold">$@Model.Price.ToString("N2")</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Contact for pricing</span>
+                            }
+                        </p>
+                        @if (!string.IsNullOrEmpty(Model.Duration))
+                        {
+                            <p><strong>Duration:</strong> @Model.Duration</p>
+                        }
+                        <p><strong>Sort Order:</strong> @Model.SortOrder</p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <form asp-action="DeleteService" method="post">
+                    <input asp-for="Id" type="hidden" />
+                    <div class="d-flex justify-content-between">
+                        <a href="/Admin/Services" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-2"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash me-2"></i>Delete Service
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

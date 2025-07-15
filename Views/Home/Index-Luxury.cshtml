@@ -1,0 +1,442 @@
+﻿@model SVMStudio.ViewModels.HomeViewModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- Hero Section -->
+<section class="luxury-hero-section">
+    <div class="hero-canvas" id="heroCanvas"></div>
+    <div class="hero-particles"></div>
+    <div class="hero-background" style="background-image: url('https://images.unsplash.com/photo-1554048612-b6eb8490bd7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+        <div class="hero-overlay"></div>
+        <div class="hero-grain"></div>
+    </div>
+    <div class="hero-content" data-aos="fade-up">
+        <div class="hero-text-container">
+            <h1 class="hero-title">
+                <span class="hero-line">Where Vision</span>
+                <span class="hero-line hero-highlight">Meets Art</span>
+            </h1>
+            <p class="hero-subtitle">Creating timeless imagery through the perfect blend of photography and styling</p>
+            <div class="hero-buttons">
+                <a asp-controller="Home" asp-action="Gallery" class="hero-cta primary-cta">
+                    <span class="btn-text">View Our Work</span>
+                    <div class="btn-bg"></div>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a asp-controller="Home" asp-action="About" class="hero-cta secondary-cta">
+                    <span class="btn-text">Our Story</span>
+                    <div class="btn-bg"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="hero-scroll-indicator">
+        <div class="scroll-mouse">
+            <div class="scroll-wheel"></div>
+        </div>
+        <span class="scroll-text">Scroll to explore</span>
+    </div>
+</section>
+
+<!-- Featured Portfolio Section -->
+<section class="luxury-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">
+                <span class="title-line">Featured</span>
+                <span class="title-highlight">Work</span>
+            </h2>
+            <p class="section-subtitle">
+                A curated selection of our most captivating visual stories
+            </p>
+        </div>
+        
+        <div class="luxury-gallery-grid" data-aos="fade-up" data-aos-delay="200">
+            @if (Model.FeaturedPortfolios.Any())
+            {
+                @foreach (var portfolio in Model.FeaturedPortfolios)
+                {
+                    <div class="luxury-gallery-item" data-aos="fade-up" data-aos-delay="@(Model.FeaturedPortfolios.IndexOf(portfolio) * 100)">
+                        <div class="gallery-card">
+                            <div class="card-image-container">
+                                <img src="@portfolio.ImageUrl" alt="@portfolio.Title" class="gallery-image">
+                                <div class="image-overlay">
+                                    <div class="overlay-content">
+                                        <h3 class="gallery-title">@portfolio.Title</h3>
+                                        <p class="gallery-category">@portfolio.Category</p>
+                                        <div class="gallery-actions">
+                                            <button class="gallery-btn view-btn" data-lightbox="gallery" data-src="@portfolio.ImageUrl">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="gallery-btn info-btn">
+                                                <i class="fas fa-info-circle"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- Enhanced placeholder content -->
+                <div class="luxury-gallery-item" data-aos="fade-up">
+                    <div class="gallery-card">
+                        <div class="card-image-container">
+                            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Photography" class="gallery-image">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h3 class="gallery-title">Editorial Photography</h3>
+                                    <p class="gallery-category">Photography</p>
+                                    <div class="gallery-actions">
+                                        <button class="gallery-btn view-btn" data-lightbox="gallery" data-src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="gallery-btn info-btn">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="luxury-gallery-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="gallery-card">
+                        <div class="card-image-container">
+                            <img src="https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Styling" class="gallery-image">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h3 class="gallery-title">Creative Styling</h3>
+                                    <p class="gallery-category">Styling</p>
+                                    <div class="gallery-actions">
+                                        <button class="gallery-btn view-btn" data-lightbox="gallery" data-src="https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="gallery-btn info-btn">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="luxury-gallery-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="gallery-card">
+                        <div class="card-image-container">
+                            <img src="https://images.unsplash.com/photo-1541854425-abedb6c8e0a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Behind the Scenes" class="gallery-image">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h3 class="gallery-title">Behind the Scenes</h3>
+                                    <p class="gallery-category">Behind the Scenes</p>
+                                    <div class="gallery-actions">
+                                        <button class="gallery-btn view-btn" data-lightbox="gallery" data-src="https://images.unsplash.com/photo-1541854425-abedb6c8e0a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="gallery-btn info-btn">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="luxury-gallery-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="gallery-card">
+                        <div class="card-image-container">
+                            <img src="https://images.unsplash.com/photo-1562572159-4efc207f5aff?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Portrait" class="gallery-image">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h3 class="gallery-title">Portrait Session</h3>
+                                    <p class="gallery-category">Photography</p>
+                                    <div class="gallery-actions">
+                                        <button class="gallery-btn view-btn" data-lightbox="gallery" data-src="https://images.unsplash.com/photo-1562572159-4efc207f5aff?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="gallery-btn info-btn">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        
+        <div class="section-cta" data-aos="fade-up">
+            <a asp-controller="Home" asp-action="Gallery" class="luxury-btn outline-btn">
+                <span class="btn-text">View Full Gallery</span>
+                <div class="btn-bg"></div>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="luxury-section services-section">
+    <div class="section-bg-texture"></div>
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">
+                <span class="title-line">Our</span>
+                <span class="title-highlight">Services</span>
+            </h2>
+            <p class="section-subtitle">
+                Comprehensive photography and styling services tailored to your vision
+            </p>
+        </div>
+        
+        <div class="luxury-services-grid">
+            @if (Model.Services.Any())
+            {
+                @foreach (var service in Model.Services)
+                {
+                    <div class="luxury-service-card" data-aos="fade-up" data-aos-delay="@(Model.Services.IndexOf(service) * 100)">
+                        <div class="service-card-inner">
+                            <div class="service-image-container">
+                                @if (!string.IsNullOrEmpty(service.IconUrl))
+                                {
+                                    <img src="@service.IconUrl" alt="@service.Name" class="service-image">
+                                }
+                                <div class="service-overlay">
+                                    <div class="service-icon">
+                                        <i class="fas fa-camera"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-title">@service.Name</h3>
+                                <p class="service-description">@service.Description</p>
+                                <div class="service-footer">
+                                    <div class="service-price">
+                                        <span class="price-label">Starting at</span>
+                                        <span class="price-amount">$@service.Price</span>
+                                    </div>
+                                    <a asp-controller="Home" asp-action="Services" class="luxury-btn service-btn">
+                                        <span class="btn-text">Learn More</span>
+                                        <div class="btn-bg"></div>
+                                        <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- Enhanced placeholder services -->
+                <div class="luxury-service-card" data-aos="fade-up">
+                    <div class="service-card-inner">
+                        <div class="service-image-container">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Photography" class="service-image">
+                            <div class="service-overlay">
+                                <div class="service-icon">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-content">
+                            <h3 class="service-title">Editorial Photography</h3>
+                            <p class="service-description">Professional photography sessions capturing your unique story with artistic flair and technical excellence.</p>
+                            <div class="service-footer">
+                                <div class="service-price">
+                                    <span class="price-label">Starting at</span>
+                                    <span class="price-amount">$500</span>
+                                </div>
+                                <a asp-controller="Home" asp-action="Services" class="luxury-btn service-btn">
+                                    <span class="btn-text">Learn More</span>
+                                    <div class="btn-bg"></div>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="luxury-service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card-inner">
+                        <div class="service-image-container">
+                            <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Styling" class="service-image">
+                            <div class="service-overlay">
+                                <div class="service-icon">
+                                    <i class="fas fa-palette"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-content">
+                            <h3 class="service-title">Creative Styling</h3>
+                            <p class="service-description">Expert styling services that bring your vision to life with carefully curated looks and aesthetic direction.</p>
+                            <div class="service-footer">
+                                <div class="service-price">
+                                    <span class="price-label">Starting at</span>
+                                    <span class="price-amount">$300</span>
+                                </div>
+                                <a asp-controller="Home" asp-action="Services" class="luxury-btn service-btn">
+                                    <span class="btn-text">Learn More</span>
+                                    <div class="btn-bg"></div>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="luxury-service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card-inner">
+                        <div class="service-image-container">
+                            <img src="https://images.unsplash.com/photo-1556760544-74068565f05c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Creative Direction" class="service-image">
+                            <div class="service-overlay">
+                                <div class="service-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-content">
+                            <h3 class="service-title">Creative Direction</h3>
+                            <p class="service-description">Comprehensive creative direction services to ensure your project achieves its full artistic potential.</p>
+                            <div class="service-footer">
+                                <div class="service-price">
+                                    <span class="price-label">Starting at</span>
+                                    <span class="price-amount">$800</span>
+                                </div>
+                                <a asp-controller="Home" asp-action="Services" class="luxury-btn service-btn">
+                                    <span class="btn-text">Learn More</span>
+                                    <div class="btn-bg"></div>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- About Preview Section -->
+<section class="luxury-section about-preview-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="about-content">
+                    <h2 class="section-title text-start">
+                        <span class="title-line">About</span>
+                        <span class="title-highlight">SVM Studio</span>
+                    </h2>
+                    <p class="about-lead">
+                        We believe that every moment deserves to be captured with artistry and elegance. Our approach combines technical excellence with creative vision, creating timeless images that tell your unique story.
+                    </p>
+                    <p class="about-description">
+                        Our team of passionate professionals understands that photography is more than just capturing images—it's about creating art that resonates with emotion and beauty. We specialize in high-end photography and styling, bringing together creativity and technical mastery.
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-number counter" data-target="500">0</div>
+                            <div class="stat-label">Happy Clients</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number counter" data-target="1200">0</div>
+                            <div class="stat-label">Photos Captured</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number counter" data-target="50">0</div>
+                            <div class="stat-label">Awards Won</div>
+                        </div>
+                    </div>
+                    <a asp-controller="Home" asp-action="About" class="luxury-btn about-btn">
+                        <span class="btn-text">Meet Our Team</span>
+                        <div class="btn-bg"></div>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="about-image-container">
+                    <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="SVM Studio Team" class="about-image">
+                    <div class="image-decoration">
+                        <div class="decoration-element decoration-1"></div>
+                        <div class="decoration-element decoration-2"></div>
+                        <div class="decoration-element decoration-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Recent Blog Posts Section -->
+@if (Model.RecentBlogPosts.Any())
+{
+    <section class="section bg-light">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Latest Inspiration</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Behind-the-scenes insights and creative inspiration from our latest projects
+            </p>
+            
+            <div class="row">
+                @foreach (var post in Model.RecentBlogPosts)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="@(Model.RecentBlogPosts.IndexOf(post) * 100)">
+                        <div class="elegant-card">
+                            @if (!string.IsNullOrEmpty(post.FeaturedImageUrl))
+                            {
+                                <img src="@post.FeaturedImageUrl" alt="@post.Title" class="card-image">
+                            }
+                            <div class="card-content">
+                                <h3 class="card-title">@post.Title</h3>
+                                <p class="card-text">@post.Content.Substring(0, Math.Min(post.Content.Length, 150))...</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">@post.PublishedAt?.ToString("MMM dd, yyyy")</small>
+                                    <a asp-controller="Home" asp-action="BlogPost" asp-route-id="@post.Id" class="btn btn-outline-primary">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            
+            <div class="text-center mt-5" data-aos="fade-up">
+                <a asp-controller="Home" asp-action="Blog" class="btn btn-outline-primary">View All Posts</a>
+            </div>
+        </div>
+    </section>
+}
+
+<!-- Call to Action Section -->
+<section class="luxury-cta-section">
+    <div class="cta-background">
+        <div class="cta-overlay"></div>
+        <div class="cta-particles"></div>
+    </div>
+    <div class="container">
+        <div class="cta-content" data-aos="fade-up">
+            <h2 class="cta-title">Ready to Create Something Beautiful?</h2>
+            <p class="cta-subtitle">Let's collaborate to bring your vision to life with our expert photography and styling services.</p>
+            <div class="cta-buttons">
+                <a asp-controller="Home" asp-action="Booking" class="luxury-btn cta-btn primary">
+                    <span class="btn-text">Book a Session</span>
+                    <div class="btn-bg"></div>
+                    <i class="fas fa-calendar-alt"></i>
+                </a>
+                <a asp-controller="Home" asp-action="Contact" class="luxury-btn cta-btn secondary">
+                    <span class="btn-text">Get in Touch</span>
+                    <div class="btn-bg"></div>
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Scroll to Top Button -->
+<button class="scroll-to-top" id="scrollToTop">
+    <i class="fas fa-arrow-up"></i>
+</button>

@@ -1,0 +1,98 @@
+@model IEnumerable<TeamMember>
+@{
+    ViewData["Title"] = "Team Members Management";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Team Members Management</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="/Admin/CreateTeamMember" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Add Team Member
+        </a>
+    </div>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">All Team Members</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped data-table">
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Sort Order</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var member in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(member.ImageUrl))
+                                    {
+                                        <img src="@member.ImageUrl" alt="@member.Name" class="img-thumbnail rounded-circle" style="width: 60px; height: 60px; object-fit: cover;" />
+                                    }
+                                    else
+                                    {
+                                        <div class="bg-light d-flex align-items-center justify-content-center rounded-circle" style="width: 60px; height: 60px;">
+                                            <i class="fas fa-user text-muted"></i>
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    <strong>@member.Name</strong>
+                                    @if (!string.IsNullOrEmpty(member.Bio))
+                                    {
+                                        <br><small class="text-muted">@(member.Bio.Length > 50 ? member.Bio.Substring(0, 50) + "..." : member.Bio)</small>
+                                    }
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary">@member.Role</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary">@member.SortOrder</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="/Admin/EditTeamMember/@member.Id" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="/Admin/DeleteTeamMember/@member.Id" class="btn btn-sm btn-outline-danger btn-delete" data-item-name="team member">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center py-4">
+                                <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">No team members found.</p>
+                                <a href="/Admin/CreateTeamMember" class="btn btn-primary">Add Your First Team Member</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

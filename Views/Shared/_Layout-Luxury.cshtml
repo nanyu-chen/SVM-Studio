@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SVM Studio</title>
+    <meta name="description" content="SVM Studio - Where Vision Meets Art. Photography and styling studio specializing in elegant, timeless imagery." />
+    
+    <!-- Bootstrap & Custom CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site-clean.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SVMStudio.styles.css" asp-append-version="true" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Luxury Preloader -->
+    <div class="luxury-preloader" id="luxuryPreloader">
+        <div class="preloader-content">
+            <div class="luxury-logo">
+                <span class="logo-text">SVM</span>
+                <div class="logo-line"></div>
+                <span class="logo-subtitle">Studio</span>
+            </div>
+            <div class="luxury-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cursor Enhancement -->
+    <div class="luxury-cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-outline"></div>
+    </div>
+    
+    <!-- Page Transition Overlay -->
+    <div class="page-transition-overlay"></div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top luxury-nav" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand luxury-logo" asp-controller="Home" asp-action="Index">
+                <div class="logo-container">
+                    <span class="logo-text">SVM</span>
+                    <div class="logo-line"></div>
+                    <span class="logo-subtitle">Studio</span>
+                </div>
+            </a>
+            
+            <button class="navbar-toggler luxury-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="toggler-line"></span>
+                <span class="toggler-line"></span>
+                <span class="toggler-line"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link luxury-nav-link" asp-controller="Home" asp-action="Index">
+                            <span class="nav-text">Home</span>
+                            <span class="nav-line"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link luxury-nav-link" asp-controller="Home" asp-action="About">
+                            <span class="nav-text">About</span>
+                            <span class="nav-line"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link luxury-nav-link" asp-controller="Home" asp-action="Gallery">
+                            <span class="nav-text">Gallery</span>
+                            <span class="nav-line"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link luxury-nav-link" asp-controller="Home" asp-action="Services">
+                            <span class="nav-text">Services</span>
+                            <span class="nav-line"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link luxury-nav-link" asp-controller="Home" asp-action="Blog">
+                            <span class="nav-text">Inspiration</span>
+                            <span class="nav-line"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link luxury-nav-link" asp-controller="Home" asp-action="Contact">
+                            <span class="nav-text">Contact</span>
+                            <span class="nav-line"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary luxury-booking-btn" asp-controller="Home" asp-action="Booking">
+                            <span class="btn-text">Book Now</span>
+                            <div class="btn-bg"></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Navigation Background Blur -->
+    <div class="nav-bg-blur"></div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link luxury-nav-link" asp-controller="Home" asp-action="Blog">
+                            <span class="nav-text">Inspiration</span>
+                            <span class="nav-line"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link luxury-nav-link" asp-controller="Home" asp-action="Contact">
+                            <span class="nav-text">Contact</span>
+                            <span class="nav-line"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary luxury-booking-btn" asp-controller="Home" asp-action="Booking">
+                            <span class="btn-text">Book Now</span>
+                            <div class="btn-bg"></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Navigation Background Blur -->
+    <div class="nav-bg-blur"></div>
+
+    <!-- Main Content -->
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="luxury-footer">
+        <div class="footer-texture"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="footer-section">
+                        <div class="footer-logo">
+                            <span class="logo-text">SVM</span>
+                            <div class="logo-line"></div>
+                            <span class="logo-subtitle">Studio</span>
+                        </div>
+                        <p class="footer-description">
+                            Where Vision Meets Art. Creating timeless imagery through the perfect blend of photography and styling.
+                        </p>
+                        <div class="social-links">
+                            <a href="#" class="social-link" data-platform="instagram">
+                                <i class="fab fa-instagram"></i>
+                                <span class="social-bg"></span>
+                            </a>
+                            <a href="#" class="social-link" data-platform="facebook">
+                                <i class="fab fa-facebook"></i>
+                                <span class="social-bg"></span>
+                            </a>
+                            <a href="#" class="social-link" data-platform="pinterest">
+                                <i class="fab fa-pinterest"></i>
+                                <span class="social-bg"></span>
+                            </a>
+                            <a href="#" class="social-link" data-platform="twitter">
+                                <i class="fab fa-twitter"></i>
+                                <span class="social-bg"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="footer-section">
+                        <h6 class="footer-subtitle">Quick Links</h6>
+                        <ul class="footer-links">
+                            <li><a asp-controller="Home" asp-action="About">About</a></li>
+                            <li><a asp-controller="Home" asp-action="Gallery">Gallery</a></li>
+                            <li><a asp-controller="Home" asp-action="Services">Services</a></li>
+                            <li><a asp-controller="Home" asp-action="Blog">Inspiration</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-section">
+                        <h6 class="footer-subtitle">Services</h6>
+                        <ul class="footer-links">
+                            <li><a href="#">Photography</a></li>
+                            <li><a href="#">Styling</a></li>
+                            <li><a href="#">Creative Direction</a></li>
+                            <li><a href="#">Behind the Scenes</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-section">
+                        <h6 class="footer-subtitle">Contact Info</h6>
+                        <div class="contact-info">
+                            <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                            <p><i class="fas fa-envelope"></i> hello@svmstudio.com</p>
+                            <p><i class="fas fa-map-marker-alt"></i> New York, NY</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row footer-bottom">
+                <div class="col-12 text-center">
+                    <div class="footer-line"></div>
+                    <p>&copy; 2025 SVM Studio. All rights reserved. | <a asp-controller="Home" asp-action="Privacy">Privacy Policy</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Luxury Scroll Progress Bar -->
+    <div class="scroll-progress">
+        <div class="progress-bar"></div>
+    </div>
+    
+    <!-- Enhanced Scroll to Top Button -->
+    <div class="scroll-to-top luxury-scroll-btn" id="scrollToTop">
+        <div class="scroll-btn-bg"></div>
+        <i class="fas fa-arrow-up"></i>
+        <div class="scroll-btn-text">Top</div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <!-- Initialize Libraries -->
+    <script>
+        // Initialize AOS with custom settings
+        AOS.init({
+            duration: 1200,
+            once: true,
+            offset: 100,
+            easing: 'ease-out-cubic'
+        });
+        
+        // Initialize GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Preloader Animation
+        gsap.timeline()
+            .to(".luxury-preloader", {
+                duration: 2,
+                opacity: 0,
+                scale: 0.8,
+                ease: "power2.inOut",
+                delay: 1
+            })
+            .to(".luxury-preloader", {
+                display: "none"
+            });
+    </script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

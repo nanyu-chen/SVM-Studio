@@ -1,0 +1,145 @@
+@model Portfolio
+@{
+    ViewData["Title"] = "Create Portfolio Item";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Create Portfolio Item</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="/Admin/Portfolios" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Portfolio
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Portfolio Item Details</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="CreatePortfolio" method="post">
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label">Title</label>
+                        <input asp-for="Title" class="form-control" placeholder="Enter portfolio item title" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">Description</label>
+                        <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter portfolio item description"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ImageUrl" class="form-label">Image URL</label>
+                        <input asp-for="ImageUrl" class="form-control" placeholder="Enter image URL" />
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                        <div class="form-text">Enter the URL of the portfolio image</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Category" class="form-label">Category</label>
+                        <select asp-for="Category" class="form-select">
+                            <option value="">Select a category</option>
+                            <option value="Wedding">Wedding</option>
+                            <option value="Portrait">Portrait</option>
+                            <option value="Fashion">Fashion</option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="Event">Event</option>
+                            <option value="Branding">Branding</option>
+                        </select>
+                        <span asp-validation-for="Category" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="SortOrder" class="form-label">Sort Order</label>
+                        <input asp-for="SortOrder" class="form-control" type="number" min="0" placeholder="0" />
+                        <span asp-validation-for="SortOrder" class="text-danger"></span>
+                        <div class="form-text">Lower numbers appear first</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input asp-for="IsFeatured" class="form-check-input" type="checkbox" />
+                            <label asp-for="IsFeatured" class="form-check-label">
+                                Featured Item
+                            </label>
+                        </div>
+                        <div class="form-text">Featured items appear in the home page gallery</div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="/Admin/Portfolios" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Create Portfolio Item
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Preview</h5>
+            </div>
+            <div class="card-body">
+                <div id="image-preview" class="text-center mb-3">
+                    <img id="preview-image" src="https://via.placeholder.com/300x200?text=No+Image" alt="Preview" class="img-fluid rounded" style="max-height: 200px;">
+                </div>
+                <div id="title-preview" class="text-muted">Enter a title to see preview</div>
+                <div id="description-preview" class="text-muted small mt-2">Enter a description to see preview</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Live preview
+        document.addEventListener('DOMContentLoaded', function() {
+            const titleInput = document.getElementById('Title');
+            const descriptionInput = document.getElementById('Description');
+            const imageUrlInput = document.getElementById('ImageUrl');
+            const previewImage = document.getElementById('preview-image');
+            const titlePreview = document.getElementById('title-preview');
+            const descriptionPreview = document.getElementById('description-preview');
+
+            function updatePreview() {
+                if (titleInput.value) {
+                    titlePreview.textContent = titleInput.value;
+                    titlePreview.className = 'fw-bold';
+                } else {
+                    titlePreview.textContent = 'Enter a title to see preview';
+                    titlePreview.className = 'text-muted';
+                }
+
+                if (descriptionInput.value) {
+                    descriptionPreview.textContent = descriptionInput.value;
+                    descriptionPreview.className = 'text-muted small mt-2';
+                } else {
+                    descriptionPreview.textContent = 'Enter a description to see preview';
+                    descriptionPreview.className = 'text-muted small mt-2';
+                }
+
+                if (imageUrlInput.value) {
+                    previewImage.src = imageUrlInput.value;
+                    previewImage.onerror = function() {
+                        this.src = 'https://via.placeholder.com/300x200?text=Invalid+URL';
+                    };
+                } else {
+                    previewImage.src = 'https://via.placeholder.com/300x200?text=No+Image';
+                }
+            }
+
+            titleInput.addEventListener('input', updatePreview);
+            descriptionInput.addEventListener('input', updatePreview);
+            imageUrlInput.addEventListener('input', updatePreview);
+        });
+    </script>
+}
