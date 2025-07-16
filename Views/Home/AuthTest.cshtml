@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = "Authentication Test";
+}
+
+<div class="container mt-5">
+    <h2>Authentication Test</h2>
+    
+    <div class="card">
+        <div class="card-body">
+            <h5>Authentication Status</h5>
+            <p><strong>Is Authenticated:</strong> @ViewData["IsAuthenticated"]</p>
+            <p><strong>User Name:</strong> @ViewData["UserName"]</p>
+            <p><strong>Roles:</strong> @string.Join(", ", ViewData["Roles"] as IEnumerable<string> ?? new string[0])</p>
+            
+            <hr>
+            
+            <h5>Test Links</h5>
+            <div class="btn-group" role="group">
+                <a href="/Account/Login" class="btn btn-primary">Login</a>
+                <a href="/Account/Register" class="btn btn-secondary">Register</a>
+                <a href="/Admin" class="btn btn-danger">Admin Panel</a>
+                <a href="/Role" class="btn btn-warning">Role Management</a>
+            </div>
+        </div>
+    </div>
+</div>

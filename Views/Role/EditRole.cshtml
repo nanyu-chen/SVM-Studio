@@ -1,0 +1,72 @@
+@model SVMStudio.ViewModels.RoleManagementViewModel
+@{
+    ViewData["Title"] = "Edit User Role";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">
+        <i class="fas fa-user-edit me-2"></i>Edit User Role
+    </h2>
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="fas fa-arrow-left me-1"></i>Back to Users
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="EditRole" method="post">
+                    <input type="hidden" asp-for="UserId" />
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">User Email</label>
+                        <input type="text" class="form-control" value="@Model.UserEmail" readonly />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Current Role</label>
+                        <input type="text" class="form-control" value="@Model.CurrentRole" readonly />
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="SelectedRole" class="form-label fw-semibold">New Role</label>
+                        <select asp-for="SelectedRole" class="form-select form-select-lg">
+                            <option value="">Select a role...</option>
+                            @foreach (var role in Model.AvailableRoles)
+                            {
+                                <option value="@role" selected="@(role == Model.SelectedRole)">@role</option>
+                            }
+                        </select>
+                        <span asp-validation-for="SelectedRole" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="alert alert-info">
+                            <h6><i class="fas fa-info-circle me-2"></i>Role Permissions:</h6>
+                            <ul class="mb-0">
+                                <li><strong>Admin:</strong> Full access to all features including user management</li>
+                                <li><strong>Staff:</strong> Can manage content and bookings</li>
+                                <li><strong>User:</strong> Can view content and make bookings</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-times me-1"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i>Update Role
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

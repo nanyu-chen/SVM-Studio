@@ -209,6 +209,15 @@ public class HomeController : Controller
         return View();
     }
 
+    // Test action to check authentication state
+    public IActionResult AuthTest()
+    {
+        ViewData["IsAuthenticated"] = User.Identity?.IsAuthenticated ?? false;
+        ViewData["UserName"] = User.Identity?.Name ?? "Not logged in";
+        ViewData["Roles"] = User.Claims.Where(c => c.Type == System.Security.Claims.ClaimTypes.Role).Select(c => c.Value);
+        return View();
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

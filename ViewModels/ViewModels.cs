@@ -124,4 +124,63 @@ namespace SVMStudio.ViewModels
         public BlogPost BlogPost { get; set; } = new();
         public List<BlogPost> RelatedPosts { get; set; } = new();
     }
+
+    // Authentication ViewModels
+    public class LoginViewModel
+    {
+        [Required(ErrorMessage = "Please enter your email")]
+        [EmailAddress(ErrorMessage = "Please enter a valid email address")]
+        public string Email { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Please enter your password")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = string.Empty;
+
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
+    }
+
+    public class RegisterViewModel
+    {
+        [Required(ErrorMessage = "Please enter your email")]
+        [EmailAddress(ErrorMessage = "Please enter a valid email address")]
+        public string Email { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Please enter a password")]
+        [StringLength(100, ErrorMessage = "The password must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = string.Empty;
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Please enter your name")]
+        [StringLength(200, ErrorMessage = "Name cannot exceed 200 characters")]
+        public string Name { get; set; } = string.Empty;
+    }
+
+    public class RoleManagementViewModel
+    {
+        public string UserId { get; set; } = string.Empty;
+        public string UserEmail { get; set; } = string.Empty;
+        public string CurrentRole { get; set; } = string.Empty;
+        public List<string> AvailableRoles { get; set; } = new();
+        public string SelectedRole { get; set; } = string.Empty;
+    }
+
+    public class UserListViewModel
+    {
+        public List<UserRoleViewModel> Users { get; set; } = new();
+    }
+
+    public class UserRoleViewModel
+    {
+        public string UserId { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
+        public DateTime CreatedDate { get; set; }
+        public bool IsActive { get; set; } = true;
+    }
 }

@@ -17,6 +17,9 @@ namespace SVMStudio.Data
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<TeamMember> TeamMembers { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<ActivityLog> ActivityLogs { get; set; }
+        public DbSet<StaffNote> StaffNotes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -87,6 +90,56 @@ namespace SVMStudio.Data
                 entity.Property(e => e.Email).IsRequired().HasMaxLength(200);
                 entity.Property(e => e.Subject).HasMaxLength(300);
                 entity.Property(e => e.Message).IsRequired().HasMaxLength(2000);
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETDATE()");
+            });
+
+            // Configure UserProfile entity
+            builder.Entity<UserProfile>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasMaxLength(450);
+                entity.Property(e => e.FirstName).HasMaxLength(100);
+                entity.Property(e => e.LastName).HasMaxLength(100);
+                entity.Property(e => e.Phone).HasMaxLength(20);
+                entity.Property(e => e.AvatarUrl).HasMaxLength(500);
+                entity.Property(e => e.Bio).HasMaxLength(1000);
+                
+                // Configure relationships
+                entity.HasMany(e => e.Bookings)
+                    .WithOne(e => e.User)
+                    .HasForeignKey(e => e.UserId)
+                    .OnDelete(DeleteBehavior.SetNull);
+                    
+                entity.HasMany(e => e.ActivityLogs)
+                    .WithOne(e => e.User)
+                    .HasForeignKey(e => e.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                    
+                entity.HasMany(e => e.StaffNotes)
+                    .WithOne(e => e.User)
+                    .HasForeignKey(e => e.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // Configure ActivityLog entity
+            builder.Entity<ActivityLog>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.UserId).IsRequired().HasMaxLength(450);
+                entity.Property(e => e.Action).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.Details).HasMaxLength(1000);
+                entity.Property(e => e.IpAddress).HasMaxLength(50);
+                entity.Property(e => e.UserAgent).HasMaxLength(500);
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETDATE()");
+            });
+
+            // Configure StaffNote entity
+            builder.Entity<StaffNote>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.UserId).IsRequired().HasMaxLength(450);
+                entity.Property(e => e.StaffId).IsRequired().HasMaxLength(450);
+                entity.Property(e => e.Note).IsRequired().HasMaxLength(2000);
                 entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETDATE()");
             });
         }

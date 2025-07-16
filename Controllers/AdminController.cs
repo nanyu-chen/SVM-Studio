@@ -6,7 +6,7 @@ using SVMStudio.Models;
 
 namespace SVMStudio.Controllers
 {
-    // [Authorize] // Temporarily disabled for development
+    [Authorize(Policy = "StaffOnly")]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;

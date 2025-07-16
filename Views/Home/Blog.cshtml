@@ -55,7 +55,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center mb-5" data-aos="fade-up">
-                <h2 class="section-title">Latest Stories</h2>
+                <h2 class="section-title">Latest <span class="text-ethereal">Stories</span></h2>
                 <p class="section-subtitle">Discover our recent work and photography insights</p>
             </div>
         </div>
@@ -239,18 +239,40 @@
 </section>
 
 <!-- Newsletter Section -->
-<section class="py-5 bg-light">
+<section class="section newsletter-section" style="background: var(--gradient-dreamy); position: relative; overflow: hidden;" data-aos="fade-up">
+    <div class="texture-overlay"></div>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-6 text-center" data-aos="fade-up">
-                <h2 class="section-title">Stay Inspired</h2>
-                <p class="section-subtitle">Subscribe to our newsletter for photography tips, inspiration, and studio updates</p>
-                <form class="newsletter-form">
-                    <div class="input-group">
-                        <input type="email" class="form-control" placeholder="Enter your email address" required>
-                        <button class="btn btn-primary" type="submit">Subscribe</button>
+            <div class="col-lg-8 text-center" data-aos="fade-up">
+                <div class="newsletter-icon mb-4">
+                    <i class="fas fa-paper-plane fa-3x text-white" style="opacity: 0.8;"></i>
+                </div>
+                <h2 class="text-white mb-3" style="font-size: 2.5rem; font-weight: 300;">Stay <span class="text-accent">Inspired</span></h2>
+                <p class="lead text-white mb-4" style="font-size: 1.2rem; opacity: 0.9;">Join our creative community and receive exclusive photography tips, behind-the-scenes content, and first access to our latest work</p>
+                <form class="newsletter-form" style="max-width: 500px; margin: 0 auto;">
+                    <div class="input-group newsletter-input-group">
+                        <input type="email" class="form-control newsletter-input" placeholder="Enter your email address" required style="border: none; background: rgba(255, 255, 255, 0.1); color: white; padding: 1rem 1.5rem; border-radius: 50px 0 0 50px; backdrop-filter: blur(10px);">
+                        <button class="btn btn-newsletter" type="submit" style="border: none; background: rgba(255, 255, 255, 0.2); color: white; padding: 1rem 2rem; border-radius: 0 50px 50px 0; backdrop-filter: blur(10px); font-weight: 500; transition: all 0.3s ease;">
+                            <i class="fas fa-arrow-right me-2"></i>Subscribe
+                        </button>
                     </div>
                 </form>
+                <div class="newsletter-benefits mt-4">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <i class="fas fa-lightbulb text-accent mb-2"></i>
+                            <p class="text-white small mb-0" style="opacity: 0.8;">Creative Tips</p>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <i class="fas fa-eye text-accent mb-2"></i>
+                            <p class="text-white small mb-0" style="opacity: 0.8;">Behind the Scenes</p>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <i class="fas fa-star text-accent mb-2"></i>
+                            <p class="text-white small mb-0" style="opacity: 0.8;">Latest Work</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -258,15 +280,69 @@
 
 <!-- Categories Sidebar (Hidden on mobile, shown on larger screens) -->
 <div class="blog-sidebar d-none d-lg-block">
-    <div class="sidebar-widget">
-        <h5>Categories</h5>
-        <ul class="category-list">
-            <li><a href="#">Photography Tips</a> <span>(12)</span></li>
-            <li><a href="#">Behind the Scenes</a> <span>(8)</span></li>
-            <li><a href="#">Recent Work</a> <span>(15)</span></li>
-            <li><a href="#">Studio News</a> <span>(5)</span></li>
-            <li><a href="#">Fashion</a> <span>(7)</span></li>
-            <li><a href="#">Education</a> <span>(10)</span></li>
+    <div class="sidebar-widget beautiful-categories" style="background: var(--gradient-ethereal); border-radius: 20px; padding: 2rem; box-shadow: var(--shadow-soft); backdrop-filter: blur(10px); border: 1px solid rgba(184, 164, 201, 0.2);">
+        <div class="widget-header text-center mb-4">
+            <div class="category-icon mb-3">
+                <i class="fas fa-th-large fa-2x" style="color: var(--primary-color);"></i>
+            </div>
+            <h5 style="font-family: var(--font-primary); font-size: 1.5rem; color: var(--primary-color); margin-bottom: 0.5rem;">Categories</h5>
+            <p style="font-size: 0.9rem; color: var(--text-medium); font-style: italic;">Explore our content</p>
+        </div>
+        <ul class="category-list beautiful-category-list" style="list-style: none; padding: 0; margin: 0;">
+            <li class="category-item" style="margin-bottom: 0.75rem;">
+                <a href="#" class="category-link" style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; text-decoration: none; color: var(--text-dark); font-weight: 500; transition: all 0.3s ease; border: 1px solid rgba(184, 164, 201, 0.1);">
+                    <div class="category-content" style="display: flex; align-items: center;">
+                        <i class="fas fa-lightbulb me-2" style="color: var(--primary-color); font-size: 1rem;"></i>
+                        Photography Tips
+                    </div>
+                    <span class="category-count" style="background: var(--gradient-dreamy); color: white; padding: 0.25rem 0.5rem; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">12</span>
+                </a>
+            </li>
+            <li class="category-item" style="margin-bottom: 0.75rem;">
+                <a href="#" class="category-link" style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; text-decoration: none; color: var(--text-dark); font-weight: 500; transition: all 0.3s ease; border: 1px solid rgba(184, 164, 201, 0.1);">
+                    <div class="category-content" style="display: flex; align-items: center;">
+                        <i class="fas fa-camera me-2" style="color: var(--primary-color); font-size: 1rem;"></i>
+                        Behind the Scenes
+                    </div>
+                    <span class="category-count" style="background: var(--gradient-dreamy); color: white; padding: 0.25rem 0.5rem; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">8</span>
+                </a>
+            </li>
+            <li class="category-item" style="margin-bottom: 0.75rem;">
+                <a href="#" class="category-link" style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; text-decoration: none; color: var(--text-dark); font-weight: 500; transition: all 0.3s ease; border: 1px solid rgba(184, 164, 201, 0.1);">
+                    <div class="category-content" style="display: flex; align-items: center;">
+                        <i class="fas fa-palette me-2" style="color: var(--primary-color); font-size: 1rem;"></i>
+                        Recent Work
+                    </div>
+                    <span class="category-count" style="background: var(--gradient-dreamy); color: white; padding: 0.25rem 0.5rem; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">15</span>
+                </a>
+            </li>
+            <li class="category-item" style="margin-bottom: 0.75rem;">
+                <a href="#" class="category-link" style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; text-decoration: none; color: var(--text-dark); font-weight: 500; transition: all 0.3s ease; border: 1px solid rgba(184, 164, 201, 0.1);">
+                    <div class="category-content" style="display: flex; align-items: center;">
+                        <i class="fas fa-newspaper me-2" style="color: var(--primary-color); font-size: 1rem;"></i>
+                        Studio News
+                    </div>
+                    <span class="category-count" style="background: var(--gradient-dreamy); color: white; padding: 0.25rem 0.5rem; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">5</span>
+                </a>
+            </li>
+            <li class="category-item" style="margin-bottom: 0.75rem;">
+                <a href="#" class="category-link" style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; text-decoration: none; color: var(--text-dark); font-weight: 500; transition: all 0.3s ease; border: 1px solid rgba(184, 164, 201, 0.1);">
+                    <div class="category-content" style="display: flex; align-items: center;">
+                        <i class="fas fa-tshirt me-2" style="color: var(--primary-color); font-size: 1rem;"></i>
+                        Fashion
+                    </div>
+                    <span class="category-count" style="background: var(--gradient-dreamy); color: white; padding: 0.25rem 0.5rem; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">7</span>
+                </a>
+            </li>
+            <li class="category-item" style="margin-bottom: 0;">
+                <a href="#" class="category-link" style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; text-decoration: none; color: var(--text-dark); font-weight: 500; transition: all 0.3s ease; border: 1px solid rgba(184, 164, 201, 0.1);">
+                    <div class="category-content" style="display: flex; align-items: center;">
+                        <i class="fas fa-graduation-cap me-2" style="color: var(--primary-color); font-size: 1rem;"></i>
+                        Education
+                    </div>
+                    <span class="category-count" style="background: var(--gradient-dreamy); color: white; padding: 0.25rem 0.5rem; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">10</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

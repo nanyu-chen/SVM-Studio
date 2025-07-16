@@ -3,17 +3,35 @@ using SVMStudio.Models;
 
 namespace SVMStudio.Data
 {
-    public static class SampleDataSeeder
+    public class SampleDataSeeder
     {
-        public static async Task SeedSampleData(ApplicationDbContext context)
+        private readonly ApplicationDbContext _context;
+
+        public SampleDataSeeder(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task SeedAsync()
         {
             // Only seed if database is empty
-            if (context.Portfolios.Any() || context.Services.Any() || context.TeamMembers.Any() || context.BlogPosts.Any())
+            if (_context.Portfolios.Any() || _context.Services.Any() || _context.TeamMembers.Any() || _context.BlogPosts.Any())
             {
                 return;
             }
 
-            // Sample Portfolio Items
+            SeedPortfolios();
+            SeedServices();
+            SeedTeamMembers();
+            SeedBlogPosts();
+            SeedBookings();
+            SeedMessages();
+
+            await _context.SaveChangesAsync();
+        }
+
+        private void SeedPortfolios()
+        {
             var portfolioItems = new List<Portfolio>
             {
                 new Portfolio
@@ -78,7 +96,11 @@ namespace SVMStudio.Data
                 }
             };
 
-            // Sample Services
+            _context.Portfolios.AddRange(portfolioItems);
+        }
+
+        private void SeedServices()
+        {
             var services = new List<Service>
             {
                 new Service
@@ -133,7 +155,11 @@ namespace SVMStudio.Data
                 }
             };
 
-            // Sample Team Members
+            _context.Services.AddRange(services);
+        }
+
+        private void SeedTeamMembers()
+        {
             var teamMembers = new List<TeamMember>
             {
                 new TeamMember
@@ -162,7 +188,11 @@ namespace SVMStudio.Data
                 }
             };
 
-            // Sample Blog Posts
+            _context.TeamMembers.AddRange(teamMembers);
+        }
+
+        private void SeedBlogPosts()
+        {
             var blogPosts = new List<BlogPost>
             {
                 new BlogPost
@@ -200,14 +230,91 @@ namespace SVMStudio.Data
                 }
             };
 
-            // Add sample data to context
-            context.Portfolios.AddRange(portfolioItems);
-            context.Services.AddRange(services);
-            context.TeamMembers.AddRange(teamMembers);
-            context.BlogPosts.AddRange(blogPosts);
+            _context.BlogPosts.AddRange(blogPosts);
+        }
 
-            // Save changes
-            await context.SaveChangesAsync();
+        private void SeedBookings()
+        {
+            var bookings = new List<Booking>
+            {
+                new Booking
+                {
+                    ClientName = "Jessica Williams",
+                    ClientEmail = "jessica@example.com",
+                    ClientPhone = "+1-555-0123",
+                    ServiceType = "Wedding",
+                    PreferredDate = DateTime.UtcNow.AddDays(45),
+                    Notes = "Romantic and elegant outdoor wedding with natural lighting. Include family portraits. Venue: Central Park, New York. Budget: $2000-3000. Guest count: 150",
+                    Status = "Pending",
+                    CreatedAt = DateTime.UtcNow.AddDays(-10)
+                },
+                new Booking
+                {
+                    ClientName = "David Martinez",
+                    ClientEmail = "david@example.com",
+                    ClientPhone = "+1-555-0456",
+                    ServiceType = "Portrait",
+                    PreferredDate = DateTime.UtcNow.AddDays(20),
+                    Notes = "Professional headshots for LinkedIn. 2 hours session. Budget: $300-500",
+                    Status = "Confirmed",
+                    CreatedAt = DateTime.UtcNow.AddDays(-5)
+                },
+                new Booking
+                {
+                    ClientName = "Lisa Chen",
+                    ClientEmail = "lisa@example.com",
+                    ClientPhone = "+1-555-0789",
+                    ServiceType = "Fashion",
+                    PreferredDate = DateTime.UtcNow.AddDays(30),
+                    Notes = "High-fashion editorial with dramatic lighting. Full day session. Wardrobe styling included. Budget: $1500+",
+                    Status = "Pending",
+                    CreatedAt = DateTime.UtcNow.AddDays(-3)
+                }
+            };
+
+            _context.Bookings.AddRange(bookings);
+        }
+
+        private void SeedMessages()
+        {
+            var messages = new List<ContactMessage>
+            {
+                new ContactMessage
+                {
+                    Name = "Alex Johnson",
+                    Email = "alex@example.com",
+                    Phone = "+1-555-0101",
+                    Subject = "Wedding Photography Inquiry",
+                    Message = "Hello! I'm planning my wedding for next summer and would love to discuss your photography packages. Can we schedule a consultation?",
+                    CreatedAt = DateTime.UtcNow.AddDays(-2)
+                },
+                new ContactMessage
+                {
+                    Name = "Maria Rodriguez",
+                    Email = "maria@example.com",
+                    Phone = "+1-555-0202",
+                    Subject = "Portrait Session",
+                    Message = "I'm interested in booking a family portrait session. Do you have availability in the next few weeks?",
+                    CreatedAt = DateTime.UtcNow.AddDays(-1)
+                },
+                new ContactMessage
+                {
+                    Name = "Robert Smith",
+                    Email = "robert@example.com",
+                    Subject = "Commercial Photography",
+                    Message = "Our company is looking for a photographer for our annual report. Can you provide a quote for corporate headshots?",
+                    CreatedAt = DateTime.UtcNow.AddHours(-12)
+                }
+            };
+
+            _context.ContactMessages.AddRange(messages);
+        }
+
+        // Static method for backward compatibility
+        public static async Task SeedSampleData(ApplicationDbContext context)
+        {
+            var seeder = new SampleDataSeeder(context);
+            await seeder.SeedAsync();
         }
     }
 }

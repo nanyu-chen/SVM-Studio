@@ -1,0 +1,313 @@
+@model SVMStudio.ViewModels.UserManagementListViewModel
+@{
+    ViewData["Title"] = "User Management";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3 mb-0 text-gray-800">
+                    <i class="fas fa-users me-2"></i>User Management
+                </h1>
+                <div class="d-flex gap-2">
+                    <a asp-action="Export" class="btn btn-success">
+                        <i class="fas fa-download me-2"></i>Export CSV
+                    </a>
+                    <a asp-action="Stats" class="btn btn-info">
+                        <i class="fas fa-chart-bar me-2"></i>Statistics
+                    </a>
+                </div>
+            </div>
+
+            <!-- Search and Filter Section -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form method="get" class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Search</label>
+                            <input type="text" name="searchTerm" value="@Model.SearchTerm" 
+                                   class="form-control" placeholder="Search users...">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Role</label>
+                            <select name="filterRole" class="form-select">
+                                <option value="">All Roles</option>
+                                <option value="Admin" selected="@(Model.FilterRole == "Admin")">Admin</option>
+                                <option value="Staff" selected="@(Model.FilterRole == "Staff")">Staff</option>
+                                <option value="User" selected="@(Model.FilterRole == "User")">Client</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Status</label>
+                            <select name="filterStatus" class="form-select">
+                                <option value="">All Status</option>
+                                <option value="Active" selected="@(Model.FilterStatus == "Active")">Active</option>
+                                <option value="Inactive" selected="@(Model.FilterStatus == "Inactive")">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Sort By</label>
+                            <select name="sortBy" class="form-select">
+                                <option value="LastOnline" selected="@(Model.SortBy == "LastOnline")">Last Online</option>
+                                <option value="UserName" selected="@(Model.SortBy == "UserName")">Username</option>
+                                <option value="Email" selected="@(Model.SortBy == "Email")">Email</option>
+                                <option value="Role" selected="@(Model.SortBy == "Role")">Role</option>
+                                <option value="CreatedAt" selected="@(Model.SortBy == "CreatedAt")">Registration Date</option>
+                                <option value="TotalBookings" selected="@(Model.SortBy == "TotalBookings")">Total Bookings</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Order</label>
+                            <select name="sortOrder" class="form-select">
+                                <option value="desc" selected="@(Model.SortOrder == "desc")">Descending</option>
+                                <option value="asc" selected="@(Model.SortOrder == "asc")">Ascending</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search me-2"></i>Search
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-times me-2"></i>Clear
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- User Statistics -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card border-left-primary">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Users</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalUsers</div>
+                                </div>
+                                <div class="h2 text-gray-300">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-left-success">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Active Users</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Users.Count(u => u.IsActive)</div>
+                                </div>
+                                <div class="h2 text-gray-300">
+                                    <i class="fas fa-user-check"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-left-info">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Bookings</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Users.Sum(u => u.TotalBookings)</div>
+                                </div>
+                                <div class="h2 text-gray-300">
+                                    <i class="fas fa-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-left-warning">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">VIP Clients</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Users.Count(u => u.TotalBookings >= 5)</div>
+                                </div>
+                                <div class="h2 text-gray-300">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Table -->
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">Users (@Model.TotalUsers)</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Contact</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Last Online</th>
+                                    <th>Bookings</th>
+                                    <th>Registered</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in Model.Users)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar-sm me-3">
+                                                    @if (!string.IsNullOrEmpty(user.AvatarUrl))
+                                                    {
+                                                        <img src="@user.AvatarUrl" alt="@user.FullName" class="rounded-circle" width="40" height="40">
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                            @(user.FullName.Length > 0 ? user.FullName.Substring(0, 1).ToUpper() : "U")
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold">@user.FullName</div>
+                                                    <div class="text-muted small">@user.UserName</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>@user.Email</div>
+                                            @if (!string.IsNullOrEmpty(user.Phone))
+                                            {
+                                                <div class="text-muted small">@user.Phone</div>
+                                            }
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-@(user.PrimaryRole switch { "Admin" => "danger", "Staff" => "warning", _ => "secondary" }) text-white">
+                                                @user.PrimaryRole
+                                            </span>
+                                        </td>
+                                        <td>
+                                            @if (user.IsActive)
+                                            {
+                                                <span class="badge bg-success">Active</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-secondary">Inactive</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (user.LastOnline.HasValue)
+                                            {
+                                                <div>@user.LastOnline.Value.ToString("MMM dd, yyyy")</div>
+                                                <div class="text-muted small">@user.LastOnline.Value.ToString("HH:mm")</div>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">Never</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="d-flex flex-column">
+                                                <span class="fw-bold">@user.TotalBookings</span>
+                                                <small class="text-muted">
+                                                    @user.CompletedBookings completed, @user.PendingBookings pending
+                                                </small>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>@user.CreatedAt.ToString("MMM dd, yyyy")</div>
+                                            <div class="text-muted small">@user.CreatedAt.ToString("HH:mm")</div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a asp-action="Details" asp-route-id="@user.Id" class="btn btn-sm btn-outline-info">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <form asp-action="ToggleStatus" asp-route-id="@user.Id" method="post" class="d-inline">
+                                                    <button type="submit" class="btn btn-sm btn-outline-@(user.IsActive ? "warning" : "success")" 
+                                                            title="@(user.IsActive ? "Deactivate" : "Activate")">
+                                                        <i class="fas fa-@(user.IsActive ? "user-times" : "user-check")"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    @if (Model.TotalPages > 1)
+                    {
+                        <nav aria-label="User pagination">
+                            <ul class="pagination justify-content-center">
+                                @if (Model.HasPreviousPage)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" asp-action="Index" 
+                                           asp-route-page="@(Model.CurrentPage - 1)"
+                                           asp-route-searchTerm="@Model.SearchTerm"
+                                           asp-route-filterRole="@Model.FilterRole"
+                                           asp-route-filterStatus="@Model.FilterStatus"
+                                           asp-route-sortBy="@Model.SortBy"
+                                           asp-route-sortOrder="@Model.SortOrder">Previous</a>
+                                    </li>
+                                }
+
+                                @for (int i = Math.Max(1, Model.CurrentPage - 2); i <= Math.Min(Model.TotalPages, Model.CurrentPage + 2); i++)
+                                {
+                                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                        <a class="page-link" asp-action="Index" 
+                                           asp-route-page="@i"
+                                           asp-route-searchTerm="@Model.SearchTerm"
+                                           asp-route-filterRole="@Model.FilterRole"
+                                           asp-route-filterStatus="@Model.FilterStatus"
+                                           asp-route-sortBy="@Model.SortBy"
+                                           asp-route-sortOrder="@Model.SortOrder">@i</a>
+                                    </li>
+                                }
+
+                                @if (Model.HasNextPage)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" asp-action="Index" 
+                                           asp-route-page="@(Model.CurrentPage + 1)"
+                                           asp-route-searchTerm="@Model.SearchTerm"
+                                           asp-route-filterRole="@Model.FilterRole"
+                                           asp-route-filterStatus="@Model.FilterStatus"
+                                           asp-route-sortBy="@Model.SortBy"
+                                           asp-route-sortOrder="@Model.SortOrder">Next</a>
+                                    </li>
+                                }
+                            </ul>
+                        </nav>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-submit search form on filter change
+        document.querySelectorAll('select[name="filterRole"], select[name="filterStatus"], select[name="sortBy"], select[name="sortOrder"]').forEach(function(element) {
+            element.addEventListener('change', function() {
+                this.form.submit();
+            });
+        });
+    </script>
+}
