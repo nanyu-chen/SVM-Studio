@@ -46,7 +46,7 @@ A sophisticated, full-stack ASP.NET Core MVC website for SVM Studio, a high-end 
 
 1. **Clone the repository**
    ```bash
-   [git clone https://github.com/nanyu-chen/SVM-Studio.git
+   git clone https://github.com/nanyu-chen/SVM-Studio.git
    cd svm-studio
    ```
 
